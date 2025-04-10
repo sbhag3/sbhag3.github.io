@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashank Bhagavatula | Portfolio</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 80px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #777;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #3498db;
+        }
+
+        .nav-item.active {
+            color: #3498db;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            width: 300px;
+            background-color: #3498db;
+            position: fixed;
+            top: 0;
+            left: 80px;
+            height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            padding: 5px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .download-cv {
+            padding: 12px 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .download-cv:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 380px;
+            flex: 1;
+            padding: 40px;
+            background-color: #fff;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #3498db;
+        }
+
+        /* Education Section */
+        .education {
+            margin-bottom: 60px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .year-container {
+            width: 120px;
+            text-align: right;
+            padding-right: 30px;
+            position: relative;
+        }
+
+        .year {
+            font-weight: 500;
+            color: #777;
+        }
+
+        .timeline-circle {
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #3498db;
+            border: 3px solid #fff;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-left: 30px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .degree {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .university {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Experience Section */
+        .experience {
+            margin-bottom: 60px;
+        }
+
+        .experience-item {
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        .year-range {
+            font-weight: 500;
+            color: #777;
+        }
+
+        .company {
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+
+        .skills-column {
+            width: 48%;
+        }
+
+        .skills-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .skills-title span {
+            color: #3498db;
+            margin-left: 5px;
+        }
+
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-percentage {
+            color: #777;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: #3498db;
+            border-radius: 4px;
+        }
+
+        /* Knowledge Section */
+        .knowledges {
+            margin-bottom: 60px;
+        }
+
+        .knowledge-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .knowledge-tag {
+            padding: 8px 16px;
+            background-color: #e0f2fe;
+            color: #3498db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Projects Section */
+        .projects {
+            margin-bottom: 60px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-img {
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .project-tech {
+            color: #3498db;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1100px) {
+            .profile-section {
+                width: 250px;
+            }
+            .main-content {
+                margin-left: 330px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 60px;
+            }
+            .profile-section {
+                left: 60px;
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 260px;
+            }
+            .skills-column {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: 60px;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .nav-item {
+                padding: 10px 0;
+            }
+            .profile-section {
+                position: relative;
+                left: 0;
+                width: 100%;
+                height: auto;
+                padding: 30px 20px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .timeline-item, .experience-item {
+                flex-direction: column;
+            }
+            .year-container {
+                width: 100%;
+                text-align: left;
+                padding-right: 0;
+                margin-bottom: 10px;
+            }
+            .timeline-circle {
+                left: 0;
+                right: auto;
+            }
+            .timeline-content {
+                padding-left: 0;
+                border-left: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="#home" class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            <div>Home</div>
+        </a>
+        <a href="#about" class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div>About</div>
+        </a>
+        <a href="#resume" class="nav-item">
+            <div class="nav-icon">📄</div>
+            <div>Resume</div>
+        </a>
+        <a href="#portfolio" class="nav-item">
+            <div class="nav-icon">💼</div>
+            <div>Portfolio</div>
+        </a>
+        <a href="#contact" class="nav-item">
+            <div class="nav-icon">✉️</div>
+            <div>Contact</div>
+        </a>
+    </aside>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="profile-image">
+            <img src="/assets/profile_pic.jpg" alt="Shashank Bhagavatula" />
+        </div>
+        <h1 class="profile-name">Shashank Bhagavatula</h1>
+        <div class="profile-title">Software Engineer & Mathematics Student</div>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/sbhag3" class="social-icon" target="_blank">in</a>
+            <a href="https://github.com/sbhag3" class="social-icon" target="_blank">gh</a>
+            <a href="mailto:sbhagavatula03@gmail.com" class="social-icon">@</a>
+        </div>
+        <a href="#" class="download-cv">Download CV</a>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Resume Section -->
+        <section id="resume">
+            <h2 class="section-title">Resume</h2>
+
+            <!-- Education Section -->
+            <div class="education">
+                <h3 class="section-title">Education</h3>
+                <div class="timeline-item">
+                    <div class="year-container">
+                        <div class="year">2022 - 2025</div>
+                        <div class="timeline-circle"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="degree">Bachelor of Science in Mathematics and Computer Science</h4>
+                        <div class="university">University of Illinois at Urbana-Champaign</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="experience">
+                <h3 class="section-title">Experience</h3>
+                
+                <div class="experience-item">
+                    <div class="year-container">
+                        <div class="year-range">Oct 2024 - Current</div>
+                        <div class="timeline-circle"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="job-title">Infrastructure Team Co-Lead</h4>
+                        <div class="company">ACM@UIUC, Champaign-Urbana, IL</div>
+                        <div class="description">
+                            <ul>
+                                <li>Leading development on a management API integrated with Azure AD and Discord API to allow ACM@UIUC's leads to assign leadership roles on major communication platforms.</li>
+                                <li>Moving important TypeScript services - link shortener, Stripe link generator for company sponsors, etc. - to ACM@UIUC's Core API.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="year-container">
+                        <div class="year-range">May 2024 - Present</div>
+                        <div class="timeline-circle"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="job-title">Software Engineer Intern</h4>
+                        <div class="company">State Farm, Atlanta, GA</div>
+                        <div class="description">
+                            <ul>
+                                <li>Developed infrastructure for several APIs in Java and GoLang to manage rental/repair eligibility and coverage options for claimholders while moving to a cloud solution, improving service efficiency.</li>
+                                <li>Utilized Terraform for Infrastructure as Code (IaC) and optimization techniques to accurately provision, manage, and automate existing cloud resources on AWS, reducing environment setup time by 48%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="year-container">
+                        <div class="year-range">Jan 2024 - Present</div>
+                        <div class="timeline-circle"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="job-title">Undergraduate Course Assistant</h4>
+                        <div class="company">University of Illinois at Urbana-Champaign, Champaign-Urbana, IL</div>
+                        <div class="description">
+                            <ul>
+                                <li>Responsible for assisting with teaching CS 233 (Computer Architecture) to over 700 students with weekly office hours and lab assignment assistance.</li>
+                                <li>Assisted with building a new MIPS assembly lab from scratch in C/C++ and JavaScript where students program a robot to traverse a map as fast as possible.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="year-container">
+                        <div class="year-range">Jan 2024 - May 2024</div>
+                        <div class="timeline-circle"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="job-title">Software Engineer Intern</h4>
+                        <div class="company">State Farm, Champaign-Urbana, IL</div>
+                        <div class="description">
+                            <ul>
+                                <li>Conducted Graph ML research on claim/participant Neo4j graph data, with a primary focus on leveraging Graph ML for fraud detection.</li>
+                                <li>Applied insights gained from research to create an API in Python that optimizes the search for fraudulent claims/policies using linear programming and targeted Neo4j queries, reducing data querying by around 80%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="skills-container">
+                <div class="skills-column">
+                    <h3 class="skills-title">Programming <span>Skills</span></h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">Python</div>
+                            <div class="skill-percentage">95%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">Java</div>
+                            <div class="skill-percentage">90%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">C/C++</div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">JavaScript/TypeScript</div>
+                            <div class="skill-percentage">80%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">GoLang</div>
+                            <div class="skill-percentage">75%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-column">
+                    <h3 class="skills-title">Development <span>Skills</span></h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">AWS</div>
+                            <div class="skill-percentage">90%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">Terraform</div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">React</div>
+                            <div class="skill-percentage">80%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">SQL/Databases</div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <div class="skill-name">Machine Learning</div>
+                            <div class="skill-percentage">75%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Knowledge Tags -->
+            <div class="knowledges">
+                <h3 class="section-title">Knowledge Areas</h3>
+                <div class="knowledge-tags">
+                    <div class="knowledge-tag">Docker</div>
+                    <div class="knowledge-tag">Cloud Computing</div>
+                    <div class="knowledge-tag">Data Structures</div>
+                    <div class="knowledge-tag">Algorithms</div>
+                    <div class="knowledge-tag">Database Systems</div>
+                    <div class="knowledge-tag">Numerical Methods</div>
+                    <div class="knowledge-tag">Linear Algebra</div>
+                    <div class="knowledge-tag">Computer Architecture</div>
+                    <div class="knowledge-tag">Neo4j</div>
+                    <div class="knowledge-tag">Distributed Systems</div>
+                    <div class="knowledge-tag">TensorFlow</div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="projects">
+                <h3 class="section-title">Projects</h3>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4 class="project-title">GreenChain Insights Dashboard</h4>
+                            <div class="project-tech">Python, SQL, React, d3, Tableau</div>
+                            <div class="project-description">
+                                Data-driven dashboard visualizing supply chain greenhouse gas emissions for over 1000+ industries with interactive filters and dynamic visualizations.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4 class="project-title">Agenda Visualization Application</h4>
+                            <div class="project-tech">Python, C++, JavaScript</div>
+                            <div class="project-description">
+                                Scheduling tool that optimizes task scheduling based on descriptions and priorities, with LLM-based suggestions. HackIllinois 2024 submission.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h4 class="project-title">Malware Detection Classifier</h4>
+                            <div class="project-tech">VirusTotal API, Python, ML Libraries</div>
+                            <div class="project-description">
+                                LLM-like tool for identifying potential threats using VirusTotal API and machine learning models. HackIllinois 2023 submission.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Simple smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active navigation
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
