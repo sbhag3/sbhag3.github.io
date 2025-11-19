@@ -2,399 +2,581 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Shashank Bhagavatula — Portfolio</title>
-    <meta name="description" content="Personal portfolio — Shashank Bhagavatula. Software engineer: networking & distributed systems." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shashank Bhagavatula — Software Engineer</title>
+    <meta name="description" content="Software Engineer at Google. Networking, Distributed Systems, and Cloud Infrastructure." />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Phosphor Icons for a modern look) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <style>
-      /* --- Variables & Base Styles --- */
+      /* --- Modern Variables & Reset --- */
       :root {
-        --bg: #F0F4F8;
-        --card: #FFFFFF;
-        --text-primary: #172B4D;
-        --text-secondary: #5E6C84;
-        --brand: #2C64E3;
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-        --transition-duration: 0.3s;
+        --bg-body: #fafafa;
+        --bg-card: rgba(255, 255, 255, 0.65);
+        --bg-card-hover: rgba(255, 255, 255, 0.85);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-accent: #64748b;
+        --brand: #2563eb;
+        --brand-glow: rgba(37, 99, 235, 0.15);
+        --border: rgba(0, 0, 0, 0.06);
+        --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --blur: blur(12px);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .dark-mode {
-        --bg: #1A202C;
-        --card: #2D3748;
-        --text-primary: #EDF2F7;
-        --text-secondary: #A0AEC0;
-        --brand: #63B3ED;
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+        --bg-body: #0f172a;
+        --bg-card: rgba(30, 41, 59, 0.6);
+        --bg-card-hover: rgba(30, 41, 59, 0.8);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-accent: #64748b;
+        --brand: #60a5fa;
+        --brand-glow: rgba(96, 165, 250, 0.15);
+        --border: rgba(255, 255, 255, 0.08);
+        --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
       }
 
-      html, body {
-        height: 100%;
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        color: var(--text-primary);
-        line-height: 1.6;
-        transition: background-color var(--transition-duration), color var(--transition-duration);
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      
+      html { scroll-behavior: smooth; }
+      
       body {
-        background: var(--bg);
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        line-height: 1.7;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        overflow-x: hidden;
       }
+
+      /* Background Gradient Mesh */
+      .background-gradient {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -1;
+        background: 
+          radial-gradient(circle at 15% 50%, var(--brand-glow), transparent 25%), 
+          radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08), transparent 25%);
+        pointer-events: none;
+      }
+
+      a { text-decoration: none; color: inherit; transition: var(--transition); }
+      h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--text-primary); line-height: 1.2; }
+      
+      /* --- Layout --- */
       .container {
-        max-width: 980px;
-        margin: 32px auto;
+        max-width: 1100px;
+        margin: 0 auto;
         padding: 0 24px;
       }
-      h1, h2, h3, h4 {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0;
-      }
-      ul {
-        margin: 0;
-        padding-left: 20px;
-        color: var(--text-secondary);
-      }
 
-      /* --- Components --- */
-      .card {
-        background: var(--card);
-        padding: 24px;
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        transition: background-color var(--transition-duration);
-      }
-      
+      /* --- Navbar (Glassmorphism) --- */
       header {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px);
+        max-width: 1100px;
+        z-index: 100;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px 24px;
-        border-radius: 10px;
-        background: var(--card);
-        box-shadow: var(--shadow);
-        transition: background-color var(--transition-duration);
+        padding: 12px 24px;
+        border-radius: 16px;
+        background: var(--bg-card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: var(--glass-border);
+        box-shadow: var(--shadow-md);
       }
-      .brand {
-        display: flex;
-        gap: 16px;
+
+      .logo { font-weight: 700; font-size: 18px; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+      .logo img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand); }
+      
+      nav { display: flex; gap: 24px; align-items: center; }
+      nav a { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+      nav a:hover { color: var(--brand); }
+      
+      .theme-btn {
+        background: none; border: none; cursor: pointer;
+        color: var(--text-primary); font-size: 20px;
+        padding: 4px; border-radius: 50%;
+        transition: var(--transition);
+      }
+      .theme-btn:hover { background: rgba(128,128,128,0.1); transform: rotate(15deg); }
+
+      /* --- Hero Section --- */
+      .hero {
+        padding-top: 160px;
+        padding-bottom: 80px;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 40px;
         align-items: center;
       }
-      .avatar {
-        width: 72px;
-        height: 72px;
-        border-radius: 8px;
-        object-fit: cover;
-        flex-shrink: 0;
-        border: 2px solid var(--brand);
+      
+      .hero-content h1 {
+        font-size: clamp(40px, 5vw, 64px);
+        font-weight: 800;
+        margin-bottom: 16px;
+        letter-spacing: -1.5px;
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      .name {
-        font-size: 24px;
-        font-weight: 700;
-      }
-      .subtitle {
-        color: var(--text-secondary);
-        font-size: 14px;
-        margin-top: 4px;
-      }
-      nav a {
-        margin-left: 18px;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 15px;
-        font-weight: 500;
-        transition: color var(--transition-duration), text-decoration var(--transition-duration);
-      }
-      nav a:hover {
+      
+      .hero-content .role {
+        font-size: 20px;
         color: var(--brand);
-        text-decoration: underline;
-      }
-      .theme-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 24px;
-        color: var(--text-primary);
-        transition: transform 0.2s ease-in-out;
-      }
-      .theme-toggle:hover {
-        transform: scale(1.1);
-      }
-
-      .hero {
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 24px;
-        margin-top: 24px;
-      }
-      .intro-card {
-        padding: 32px;
-      }
-      .intro-card h2 {
-        font-size: 36px;
-        font-weight: 700;
-      }
-      .intro-text {
-        color: var(--text-secondary);
-        margin-top: 12px;
-        line-height: 1.7;
-      }
-
-      .cta {
-        display: flex;
-        gap: 12px;
-        margin-top: 24px;
-      }
-      .btn {
-        padding: 12px 18px;
-        border-radius: 8px;
-        text-decoration: none;
         font-weight: 600;
-        font-size: 14px;
-        text-align: center;
-        border: 1px solid var(--text-secondary);
-        color: var(--text-secondary);
-        background: var(--card);
-        transition: transform 0.2s ease-in-out, background-color var(--transition-duration), color var(--transition-duration), border-color var(--transition-duration);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
-      .btn:hover {
-        transform: translateY(-2px);
+
+      .hero-text {
+        font-size: 18px;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        max-width: 540px;
+      }
+
+      .social-links { display: flex; gap: 16px; margin-bottom: 32px; }
+      .social-icon {
+        font-size: 24px; color: var(--text-secondary);
+        transition: var(--transition);
+      }
+      .social-icon:hover { color: var(--brand); transform: translateY(-3px); }
+
+      .cta-group { display: flex; gap: 16px; }
+      .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
       .btn-primary {
         background: var(--brand);
         color: white;
-        border: none;
-        transition: background-color var(--transition-duration), transform 0.2s ease-in-out;
+        box-shadow: 0 4px 14px -4px var(--brand);
       }
-      .btn-primary:hover {
-        background: #1C51C1;
+      .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+      }
+      .btn-outline:hover { border-color: var(--brand); color: var(--brand); background: rgba(255,255,255,0.05); }
+
+      /* --- Grid Layout for Content --- */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+      }
+
+      /* --- Sections --- */
+      .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-title i { color: var(--brand); }
+
+      /* --- Cards (Projects & Info) --- */
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+        transition: var(--transition);
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        background: var(--bg-card-hover);
+        box-shadow: var(--shadow-md);
+        border-color: var(--brand-glow);
+      }
+
+      .project-card { display: flex; flex-direction: column; height: 100%; }
+      .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+      .project-title { font-size: 18px; font-weight: 700; }
+      .project-links a { color: var(--text-secondary); font-size: 20px; margin-left: 8px; }
+      .project-links a:hover { color: var(--brand); }
+      .project-desc { font-size: 15px; color: var(--text-secondary); flex-grow: 1; margin-bottom: 16px; }
+      .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+      .tech-tag {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: var(--brand-glow);
+        color: var(--brand);
+        font-weight: 600;
       }
 
       .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px;
-        margin-top: 16px;
-      }
-      .project-card {
-        box-shadow: none;
-        padding: 16px;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        border-radius: 8px;
-        transition: border-color var(--transition-duration), background-color var(--transition-duration);
-      }
-      .dark-mode .project-card {
-        border-color: rgba(255, 255, 255, 0.05);
-      }
-      .project-title {
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-      .project-tech {
-        color: var(--text-secondary);
-        font-size: 13px;
-      }
-      .project-description {
-        margin-top: 10px;
-        color: var(--text-secondary);
-        font-size: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
       }
 
-      aside .card {
-        margin-bottom: 24px;
+      /* --- Timeline (Experience) --- */
+      .timeline { position: relative; padding-left: 24px; border-left: 2px solid var(--border); }
+      .timeline-item { position: relative; margin-bottom: 40px; }
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -31px; top: 5px;
+        width: 12px; height: 12px;
+        background: var(--brand);
+        border-radius: 50%;
+        border: 4px solid var(--bg-body);
+        box-shadow: 0 0 0 1px var(--brand);
       }
-      .contact-info {
-        font-size: 14px;
-        color: var(--text-secondary);
-        margin-top: 8px;
-      }
-      .skill-list {
-        font-size: 14px;
-        color: var(--text-secondary);
-        margin-top: 8px;
-      }
-      .education-item, .experience-item {
-        margin-top: 16px;
-      }
-      .item-title {
-        font-weight: 600;
-      }
-      .item-details {
-        font-size: 14px;
-        color: var(--text-secondary);
-        margin-top: 4px;
-      }
-      .job-description {
-        margin-top: 8px;
-      }
+      .timeline-date { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+      .timeline-title { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+      .timeline-company { font-size: 15px; color: var(--text-primary); font-weight: 500; margin-bottom: 8px; }
+      .timeline-desc { font-size: 15px; color: var(--text-secondary); }
+      .timeline-desc ul { padding-left: 16px; margin-top: 8px; }
+      .timeline-desc li { margin-bottom: 6px; }
 
-      .section-heading {
-        font-size: 24px;
-        margin-bottom: 16px;
-      }
+      /* --- Sidebar (Skills & Education) --- */
+      .sidebar-section { margin-bottom: 40px; }
+      .sidebar-item { margin-bottom: 16px; }
+      .sidebar-heading { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+      .sidebar-sub { font-size: 14px; color: var(--text-secondary); }
       
-      footer {
-        margin-top: 40px;
-        text-align: center;
-        color: var(--text-secondary);
+      .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+      .skill-pill {
         font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background: rgba(128, 128, 128, 0.08);
+        color: var(--text-secondary);
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: var(--transition);
+      }
+      .skill-pill:hover {
+        background: var(--bg-card);
+        border-color: var(--brand);
+        color: var(--brand);
       }
 
-      @media (max-width: 880px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-        nav {
-          display: none;
-        }
+      /* --- Footer --- */
+      footer {
+        text-align: center;
+        padding: 40px 0;
+        border-top: 1px solid var(--border);
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-top: 40px;
+      }
+
+      /* --- Scroll Reveal Animation --- */
+      .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+      .reveal.active { opacity: 1; transform: translateY(0); }
+
+      /* --- Mobile --- */
+      @media (max-width: 850px) {
+        .hero { grid-template-columns: 1fr; padding-top: 120px; text-align: center; }
+        .hero-content .role { justify-content: center; }
+        .hero-text { margin: 0 auto 32px auto; }
+        .social-links { justify-content: center; }
+        .cta-group { justify-content: center; }
+        .content-grid { grid-template-columns: 1fr; }
+        nav { display: none; } /* Hide nav links on mobile, keep toggle */
+        header { justify-content: center; }
+        .theme-btn { position: absolute; right: 24px; }
+        .logo { position: absolute; left: 24px; }
       }
     </style>
   </head>
   <body>
+    
+    <!-- Ambient Background -->
+    <div class="background-gradient"></div>
+
     <div class="container">
       <header>
-        <div class="brand">
-          <img src="assets/profile_pic.jpg" alt="Shashank Bhagavatula" class="avatar" />
-          <div>
-            <div class="name">Shashank Bhagavatula</div>
-            <div class="subtitle">SWE @ Google — MCS @ UIUC</div>
-          </div>
+        <div class="logo">
+          <img src="assets/profile_pic.jpg" alt="SB">
+          <span>Shashank.</span>
         </div>
         <nav>
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
           <a href="mailto:sbhagavatula03@gmail.com">Contact</a>
-          <a class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</a>
         </nav>
+        <button class="theme-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+          <i class="ph-fill ph-moon"></i>
+        </button>
       </header>
 
-      <main class="hero">
-        <section>
-          <div class="card intro-card">
-            <h2>Hi — I’m Shashank.</h2>
-            <p class="intro-text">I'm a recent graduate with a strong foundation in Computer Science and Data Science, now starting my career as a Software Engineer at Google. I’m passionate about building scalable systems, exploring the intersection of data and infrastructure, and continuing to grow in areas like distributed systems, machine learning, and cloud technologies.</p>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content reveal">
+          <h1>Hello, I'm Shashank.</h1>
+          <div class="role">
+            <i class="ph ph-code"></i> Software Engineer @ Google
+          </div>
+          <p class="hero-text">
+            Building scalable distributed systems and cloud infrastructure. 
+            Recent UIUC graduate passionate about the intersection of data, machine learning, and backend performance.
+          </p>
+          
+          <div class="social-links">
+            <a href="https://github.com/sbhag3" target="_blank" class="social-icon"><i class="ph-fill ph-github-logo"></i></a>
+            <a href="https://linkedin.com/in/sbhag3" target="_blank" class="social-icon"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="mailto:sbhagavatula03@gmail.com" class="social-icon"><i class="ph-fill ph-envelope"></i></a>
+          </div>
 
-            <div class="cta">
-              <a class="btn btn-primary" href="assets/current-resume.pdf" download>Download Resume</a>
-              <a class="btn" href="mailto:sbhagavatula03@gmail.com">Email</a>
-              <a class="btn" href="https://github.com/sbhag3" target="_blank">GitHub</a>
-              <a class="btn" href="https://linkedin.com/in/sbhag3" target="_blank">LinkedIn</a>
-            </div>
+          <div class="cta-group">
+            <a href="assets/current-resume.pdf" download class="btn btn-primary">
+              <i class="ph-bold ph-download-simple"></i> Resume
+            </a>
+            <a href="#projects" class="btn btn-outline">View Work</a>
+          </div>
+        </div>
+        
+        <!-- You can put a large abstract SVG or a larger profile photo here if desired. 
+             For now, I'll leave it empty to let the text breathe, or hide it on mobile -->
+      </section>
 
-            <section id="projects" style="margin-top: 32px;">
-              <h3 class="section-heading">Selected Projects</h3>
-              <div class="projects-grid">
-                <div class="project-card">
-                  <div class="project-title">GreenChain Insights Dashboard</div>
-                  <div class="project-tech">Python, SQL, React, d3, Tableau</div>
-                  <div class="project-description">Interactive dashboard visualizing GHG emissions across 1000+ industries. Optimized data retrieval by 68%.</div>
-                </div>
-                <div class="project-card">
-                  <div class="project-title">Agenda Visualization Application (AVA)</div>
-                  <div class="project-tech">Python, C++, JS</div>
-                  <div class="project-description">Scheduling tool enhanced with ML suggestions; submitted to HackIllinois 2024.</div>
-                </div>
-                <div class="project-card">
-                  <div class="project-title">Malware Detection Classifier</div>
-                  <div class="project-tech">Python, VirusTotal API</div>
-                  <div class="project-description">ML model and web UI for detecting threats; reduced query volume by targeted approaches.</div>
+      <div class="content-grid">
+        
+        <!-- Main Column: Experience & Projects -->
+        <main>
+          
+          <!-- Experience -->
+          <section id="experience" class="reveal">
+            <h3 class="section-title"><i class="ph-duotone ph-briefcase"></i> Experience</h3>
+            
+            <div class="timeline">
+              
+              <div class="timeline-item">
+                <div class="timeline-date">Aug 2025 — Present</div>
+                <div class="timeline-title">Software Engineer</div>
+                <div class="timeline-company">Google • Kirkland, WA</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Improved Slicer data propagation efficiency by 50% by optimizing assignment application logic (Java).</li>
+                    <li>Reduced false-positive proxy monitoring alerts by 20% by refining filtering logic for supported cells.</li>
+                  </ul>
                 </div>
               </div>
-            </section>
-          </div>
-        </section>
 
+              <div class="timeline-item">
+                <div class="timeline-date">Oct 2024 — May 2025</div>
+                <div class="timeline-title">Infrastructure Team Co-Lead</div>
+                <div class="timeline-company">ACM @ UIUC</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Built a management API integrated with Azure AD and Discord to automate leadership roles.</li>
+                    <li>Ported legacy services to a centralized Core API, improving maintainability.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">May 2024 — Apr 2025</div>
+                <div class="timeline-title">Software Engineer Intern</div>
+                <div class="timeline-company">State Farm</div>
+                <div class="timeline-desc">
+                  <ul>
+                    <li>Implemented Java/Go services for rental eligibility; reduced env setup time by 48% via Terraform.</li>
+                    <li>Conducted Graph ML research on Neo4j data to detect fraud; optimized queries by ~80%.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">Jan 2024 — May 2025</div>
+                <div class="timeline-title">Undergraduate Course Assistant</div>
+                <div class="timeline-company">UIUC (CS 233)</div>
+                <div class="timeline-desc">
+                  Assisted 700+ students with Computer Architecture concepts and built labs in C/C++ and JS.
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Projects -->
+          <section id="projects" style="margin-top: 60px;">
+            <h3 class="section-title"><i class="ph-duotone ph-code-block"></i> Selected Projects</h3>
+            
+            <div class="projects-grid">
+              
+              <!-- Project 1 -->
+              <div class="card project-card reveal">
+                <div class="project-header">
+                  <div class="project-title">GreenChain Insights</div>
+                  <div class="project-links">
+                    <a href="#" target="_blank"><i class="ph-fill ph-github-logo"></i></a>
+                  </div>
+                </div>
+                <p class="project-desc">Interactive dashboard visualizing GHG emissions across 1000+ industries. Optimized data retrieval by 68%.</p>
+                <div class="tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">d3.js</span>
+                </div>
+              </div>
+
+              <!-- Project 2 -->
+              <div class="card project-card reveal">
+                <div class="project-header">
+                  <div class="project-title">AVA Scheduling</div>
+                  <div class="project-links">
+                    <a href="#" target="_blank"><i class="ph-fill ph-github-logo"></i></a>
+                  </div>
+                </div>
+                <p class="project-desc">Agenda Visualization Application. Scheduling tool enhanced with ML suggestions. HackIllinois 2024.</p>
+                <div class="tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">C++</span>
+                  <span class="tech-tag">ML</span>
+                </div>
+              </div>
+
+              <!-- Project 3 -->
+              <div class="card project-card reveal">
+                <div class="project-header">
+                  <div class="project-title">Malware Detection</div>
+                  <div class="project-links">
+                    <a href="#" target="_blank"><i class="ph-fill ph-github-logo"></i></a>
+                  </div>
+                </div>
+                <p class="project-desc">ML model and web UI for detecting threats via VirusTotal API. Reduced query volume by targeted approaches.</p>
+                <div class="tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">API</span>
+                  <span class="tech-tag">Security</span>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+
+        <!-- Sidebar: Education & Skills -->
         <aside>
-          <div class="card">
-            <h3>Contact</h3>
-            <div class="contact-info">
-              309-622-2695<br/>sbhagavatula03@gmail.com
+          <div class="card reveal">
+            <div class="sidebar-section">
+              <h3 class="section-title" style="font-size: 18px; margin-bottom: 16px;"><i class="ph-duotone ph-graduation-cap"></i> Education</h3>
+              
+              <div class="sidebar-item">
+                <div class="sidebar-heading">UIUC</div>
+                <div class="sidebar-sub">Professional Master's of CS</div>
+                <div class="sidebar-sub" style="font-size: 12px; opacity: 0.8;">Aug 2025 - Present</div>
+              </div>
+              
+              <div class="sidebar-item">
+                <div class="sidebar-heading">UIUC</div>
+                <div class="sidebar-sub">B.S. Math & Computer Science</div>
+                <div class="sidebar-sub" style="font-size: 12px; opacity: 0.8;">Aug 2022 - May 2025</div>
+              </div>
             </div>
-            <div style="margin-top: 16px;">
-              <h4>Skills</h4>
-              <div class="skill-list">Go · Java · Python · C/C++ · Terraform · SQL · Docker · Kubernetes</div>
-            </div>
-          </div>
 
-          <div class="card">
-            <h3>Education</h3>
-            <div class="education-item">
-              <div class="item-title">University of Illinois Urbana-Champaign</div>
-              <div class="item-details">Professional Master's of Computer Science — Aug 2025 - Present</div>
+            <div class="sidebar-section">
+              <h3 class="section-title" style="font-size: 18px; margin-bottom: 16px;"><i class="ph-duotone ph-cpu"></i> Skills</h3>
+              <div class="skills-container">
+                <span class="skill-pill">Java</span>
+                <span class="skill-pill">Go</span>
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">C++</span>
+                <span class="skill-pill">Terraform</span>
+                <span class="skill-pill">SQL</span>
+                <span class="skill-pill">Docker</span>
+                <span class="skill-pill">Kubernetes</span>
+                <span class="skill-pill">GCP</span>
+              </div>
             </div>
-            <div class="education-item">
-              <div class="item-title">University of Illinois Urbana-Champaign</div>
-              <div class="item-details">Bachelor's of Science in Mathematics and Computer Science — Aug 2022 - May 2025</div>
+
+            <div class="sidebar-section">
+              <h3 class="section-title" style="font-size: 18px; margin-bottom: 16px;"><i class="ph-duotone ph-paper-plane-tilt"></i> Contact</h3>
+              <div class="sidebar-item">
+                <div class="sidebar-sub">sbhagavatula03@gmail.com</div>
+                <div class="sidebar-sub">309-622-2695</div>
+              </div>
             </div>
           </div>
         </aside>
-      </main>
 
-      <section id="experience" style="margin-top: 24px;">
-        <div class="card">
-          <h3 class="section-heading">Experience</h3>
-          <div class="experience-item">
-            <div class="item-title">Software Engineer — Google</div>
-            <div class="item-details">Kirkland, WA — Aug 2025 - Present</div>
-            <ul class="job-description">
-              <li>Improved Slicer data propagation efficiency by 50% by optimizing assignment application logic, validated with Java microbenchmarks.</li>
-              <li>Reduced false-positive proxy monitoring alerts by 20% by refining proxy alert filtering for supported cells.</li>
-            </ul>
-          </div>
-          <div class="experience-item">
-            <div class="item-title">Infrastructure Team Co-Lead — ACM@UIUC</div>
-            <div class="item-details">Oct 2024 – May 2025</div>
-            <ul class="job-description">
-              <li>Built a management API integrated with Azure AD and Discord to manage leadership roles for ACM@UIUC.</li>
-              <li>Ported TypeScript services to the Core API (link shortener, Stripe link generator).</li>
-            </ul>
-          </div>
-          <div class="experience-item">
-            <div class="item-title">Software Engineer Intern — State Farm</div>
-            <div class="item-details">May 2024 – Apr 2025</div>
-            <ul class="job-description">
-              <li>Implemented Java and Go services for rental/repair eligibility and coverage; used Terraform to reduce environment setup time by 48%.</li>
-              <li>Conducted Graph ML research on Neo4j claim data to detect fraud; built a Python API to optimize searches and reduce querying by ~80%.</li>
-            </ul>
-          </div>
-          <div class="experience-item">
-            <div class="item-title">Undergraduate Course Assistant — UIUC</div>
-            <div class="item-details">Jan 2024 – May 2025</div>
-            <ul class="job-description">
-              <li>Assisted CS 233 teaching for 700+ students; maintained weekly office hours and labs.</li>
-              <li>Helped build a MIPS assembly lab in C/C++ and JavaScript.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
+
     <footer>
-      © 2025 Shashank Bhagavatula. All rights reserved.
+      <p>© 2025 Shashank Bhagavatula. Built with vanilla web tech.</p>
     </footer>
+
     <script>
+      /* --- Theme Toggle Logic --- */
       const themeToggle = document.getElementById('theme-toggle');
+      const icon = themeToggle.querySelector('i');
       const body = document.body;
 
-      themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-          themeToggle.textContent = '☀️';
-          localStorage.setItem('theme', 'dark');
-        } else {
-          themeToggle.textContent = '🌙';
-          localStorage.setItem('theme', 'light');
-        }
-      });
-      
-      // Set initial theme based on user preference or localStorage
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'dark') {
+      const setDark = () => {
         body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
-      } else {
-        themeToggle.textContent = '🌙';
+        icon.classList.remove('ph-moon');
+        icon.classList.add('ph-sun');
+        localStorage.setItem('theme', 'dark');
+      };
+
+      const setLight = () => {
+        body.classList.remove('dark-mode');
+        icon.classList.remove('ph-sun');
+        icon.classList.add('ph-moon');
+        localStorage.setItem('theme', 'light');
+      };
+
+      themeToggle.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) setLight();
+        else setDark();
+      });
+
+      // Init theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') setDark();
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !savedTheme) {
+        setDark();
       }
+
+      /* --- Scroll Reveal Animation --- */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
